@@ -57,11 +57,11 @@ def main(config):
     # print(srcc_all)
     # print(plcc_all)
     srcc_med = np.median(srcc_all)
+
     plcc_med = np.median(plcc_all)
 
     print('Testing median SRCC %4.4f,\tmedian PLCC %4.4f' % (srcc_med, plcc_med))
 
-    ### 交叉验证
     #     print('Round %d' % (i+1))
     #     shuffled_img_num1 = img_num[config.dataset][:]
     #     shuffled_img_num2 = img_num[config.dataset2][:]
