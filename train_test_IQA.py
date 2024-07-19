@@ -3,13 +3,13 @@ import argparse
 import random
 import numpy as np
 from LBPSolver import LBPIQASolver
-import torch
-
+# import torch
+import wandb
 # os.environ["CUDA_VISIBLE_DEVICES"] = ','.join(map(str, [0,1,2])) # 一般在程序开头设置
 # 等价于os.environ["CUDA_VISIBLE_DEVICES"] = '0,1,2'
 # net = torch.nn.DataParallel(model)
 #os.environ['CUDA_VISIBLE_DEVICES'] = '0'
-os.environ['CUDA_VISIBLE_DEVICES'] = '2'
+# os.environ['CUDA_VISIBLE_DEVICES'] = '2'
 #os.environ['CUDA_VISIBLE_DEVICES'] = ','.join(map(str,[0,1]))
 main_path = "."
 
@@ -36,8 +36,13 @@ def main(config):
 
     srcc_all = np.zeros(config.train_test_num, dtype=np.float64)
     plcc_all = np.zeros(config.train_test_num, dtype=np.float64)
-
     print('Training and testing on %s dataset for %d rounds...' % (config.dataset, config.train_test_num))
+
+    if config.wb:
+        config.run = wandb.init(project=config.dataset+"_iqa", mode="online")
+    else:
+        config.run = wandb.init(project=config.dataset + "_iqa", mode="disabled")
+
     for i in range(config.train_test_num):
         ###
         print('Round %d' % (i+1))
@@ -108,6 +113,7 @@ if __name__ == '__main__':
     parser.add_argument('--epochs', dest='epochs', type=int, default=10, help='Epochs for training')
     parser.add_argument('--patch_size', dest='patch_size', type=int, default=224, help='Crop size for training & testing image patches')
     parser.add_argument('--train_test_num', dest='train_test_num', type=int, default=10, help='Train-test times')
+    parser.add_argument('--wb', type=bool, default=True, help='use wandb')
 
     config = parser.parse_args()
 

@@ -16,8 +16,7 @@ class LBPIQASolver(object):
 
         self.model_lbp = LBP_and_GFNnet.BaseModel().cuda()
         self.model_lbp.train(True)
-
-        #self.l1_loss = torch.nn.L1Loss().cuda()
+        self.run = config.run
         self.l1_loss = torch.nn.SmoothL1Loss().cuda()
         self.l2_loss = torch.nn.MSELoss().cuda()
         backbone_params = list(map(id, self.model_lbp.parameters()))
@@ -25,9 +24,9 @@ class LBPIQASolver(object):
         self.lr = config.lr
         self.lrratio = config.lr_ratio
         self.weight_decay = config.weight_decay
+        self.wb = config.wb
         paras = [{'params': self.lbp_params, 'lr': self.lr * self.lrratio},
-                 {'params': self.model_lbp.parameters(), 'lr': self.lr}
-                 ]
+                 {'params': self.model_lbp.parameters(), 'lr': self.lr}]
         self.solver = torch.optim.Adam(paras, weight_decay=self.weight_decay)
 
         train_loader = data_loader.DataLoader(config.dataset, path, train_idx, config.patch_size, config.train_patch_num, batch_size=config.batch_size, istrain=True)
@@ -66,6 +65,8 @@ class LBPIQASolver(object):
                 loss1 = self.l1_loss(x.squeeze(), label.float().detach())
                 loss2 = self.l2_loss(logit1, logit2)
 
+                self.run.log({'loss_l1': loss1, 'loss_l2': loss2})
+
                 loss = loss1 + loss2
                 epoch_loss.append(loss.item())
                 loss.backward()
@@ -97,8 +98,6 @@ class LBPIQASolver(object):
 
         print('Best test SRCC %f, PLCC %f' % (best_srcc, best_plcc))
 
-       
-
         return best_srcc, best_plcc
 
     def test(self, data):
@@ -121,6 +120,7 @@ class LBPIQASolver(object):
         gt_scores = np.mean(np.reshape(np.array(gt_scores), (-1, self.test_patch_num)), axis=1)
         test_srcc, _ = stats.spearmanr(pred_scores, gt_scores)
         test_plcc, _ = stats.pearsonr(pred_scores, gt_scores)
+        self.run.log({'test_srcc': test_srcc, 'test_plcc': test_plcc})
 
         self.model_lbp.train(True)
         return test_srcc, test_plcc
