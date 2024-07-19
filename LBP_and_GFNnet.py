@@ -150,8 +150,8 @@ class GatedFusionNetwork(nn.Module):
         self.output = nn.Linear(hidden_size, 100)
 
     def forward(self, input1, input2):
-        out1 = torch.sigmoid(self.pathway1(input1))
-        out2 = torch.sigmoid(self.pathway2(input2))
+        out1 = torch.relu(self.pathway1(input1))
+        out2 = torch.relu(self.pathway2(input2))
         # fused = torch.cat((out1, out2), dim=1)
         # gate = self.gating(fused)
         

@@ -19,14 +19,22 @@ class LBPIQASolver(object):
         self.run = config.run
         self.l1_loss = torch.nn.SmoothL1Loss().cuda()
         self.l2_loss = torch.nn.MSELoss().cuda()
-        backbone_params = list(map(id, self.model_lbp.parameters()))
-        self.lbp_params = filter(lambda p: id(p) not in backbone_params, self.model_lbp.parameters())
+        # backbone_params = list(map(id, self.model_lbp.parameters()))
+        self.backbone_params = list(map(id, self.model_lbp.efficientnet.parameters()))
+        self.backbone_params += list(map(id, self.model_lbp.efficientnet1.parameters()))
+        self.lbp_params = filter(lambda p: id(p) not in self.backbone_params, self.model_lbp.parameters())
+        self.backbone = filter(lambda p: id(p) in self.backbone_params, self.model_lbp.parameters())
+
+
         self.lr = config.lr
         self.lrratio = config.lr_ratio
         self.weight_decay = config.weight_decay
         self.wb = config.wb
+        # paras = [{'params': self.lbp_params, 'lr': self.lr * self.lrratio},
+        #          {'params': self.model_lbp.parameters(), 'lr': self.lr}]
+        # self.solver = torch.optim.Adam(paras, weight_decay=self.weight_decay)
         paras = [{'params': self.lbp_params, 'lr': self.lr * self.lrratio},
-                 {'params': self.model_lbp.parameters(), 'lr': self.lr}]
+                 {'params': self.backbone, 'lr': self.lr}]
         self.solver = torch.optim.Adam(paras, weight_decay=self.weight_decay)
 
         train_loader = data_loader.DataLoader(config.dataset, path, train_idx, config.patch_size, config.train_patch_num, batch_size=config.batch_size, istrain=True)
@@ -92,9 +100,9 @@ class LBPIQASolver(object):
             lr = self.lr / pow(10, (t // 6))
             if t > 8:
                 self.lrratio = 1
-            self.paras = [{'params': self.lbp_params, 'lr': lr * self.lrratio},
-                          {'params': self.model_lbp.parameters(), 'lr': self.lr}]
-            self.solver = torch.optim.Adam(self.paras, weight_decay=self.weight_decay)
+            paras = [{'params': self.lbp_params, 'lr': self.lr * self.lrratio},
+                     {'params': self.backbone, 'lr': self.lr}]
+            self.solver = torch.optim.Adam(paras, weight_decay=self.weight_decay)
 
         print('Best test SRCC %f, PLCC %f' % (best_srcc, best_plcc))
 

@@ -5,6 +5,7 @@ import numpy as np
 from LBPSolver import LBPIQASolver
 # import torch
 import wandb
+import torch
 # os.environ["CUDA_VISIBLE_DEVICES"] = ','.join(map(str, [0,1,2])) # 一般在程序开头设置
 # 等价于os.environ["CUDA_VISIBLE_DEVICES"] = '0,1,2'
 # net = torch.nn.DataParallel(model)
@@ -12,6 +13,16 @@ import wandb
 # os.environ['CUDA_VISIBLE_DEVICES'] = '2'
 #os.environ['CUDA_VISIBLE_DEVICES'] = ','.join(map(str,[0,1]))
 main_path = "."
+
+def set_random_seed(seed):
+    random.seed(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    try:
+        torch.cuda.manual_seed_all(seed)
+    except:
+        print('Could not set cuda seed.')
+        pass
 
 def main(config):
     folder_path = {
@@ -33,7 +44,7 @@ def main(config):
     }
     sel_num = img_num[config.dataset]
     # sel_num_test = img_num[config.dataset2]
-
+    set_random_seed(config.seed)
     srcc_all = np.zeros(config.train_test_num, dtype=np.float64)
     plcc_all = np.zeros(config.train_test_num, dtype=np.float64)
     print('Training and testing on %s dataset for %d rounds...' % (config.dataset, config.train_test_num))
@@ -42,6 +53,8 @@ def main(config):
         config.run = wandb.init(project=config.dataset+"_iqa", mode="online")
     else:
         config.run = wandb.init(project=config.dataset + "_iqa", mode="disabled")
+
+    config.run.name = str(config.seed)
 
     for i in range(config.train_test_num):
         ###
@@ -54,11 +67,9 @@ def main(config):
         solver = LBPIQASolver(config, folder_path[config.dataset], train_index, test_index)
         srcc_all[i], plcc_all[i] = solver.train()
 
-    # print(srcc_all)
-    # print(plcc_all)
     srcc_med = np.median(srcc_all)
-
     plcc_med = np.median(plcc_all)
+    config.run.log({"srcc_med": srcc_med, "plcc_med": plcc_med})
 
     print('Testing median SRCC %4.4f,\tmedian PLCC %4.4f' % (srcc_med, plcc_med))
 
@@ -79,25 +90,7 @@ def main(config):
     # srcc_med = np.median(srcc_all)
     # plcc_med = np.median(plcc_all)
 
-    # print('Testing median SRCC %4.4f,\tmedian PLCC %4.4f' % (srcc_med, plcc_med))
-    ###交叉验证
-        # Randomly select 80% images for training and the rest for testing
-        # random.shuffle(sel_num)
-        # train_index = sel_num[0:int(round(0.8 * len(sel_num)))]
-        # test_index = sel_num[int(round(0.8 * len(sel_num))):len(sel_num)]
 
-        # train_index = random.shuffle(img_num[config.dataset])
-        # print(train_index)
-        # test_index = random.shuffle(img_num[config.dataset2])
-
-        # solver = LBPIQASolver(config, folder_path[config.dataset],folder_path[config.dataset2],train_index, test_index)
-        # srcc_all[i], plcc_all[i] = solver.train()
-
-
-    # print(srcc_all)
-    # print(plcc_all)
-   
-    # return srcc_med, plcc_med
 
 
 if __name__ == '__main__':
@@ -114,6 +107,7 @@ if __name__ == '__main__':
     parser.add_argument('--patch_size', dest='patch_size', type=int, default=224, help='Crop size for training & testing image patches')
     parser.add_argument('--train_test_num', dest='train_test_num', type=int, default=10, help='Train-test times')
     parser.add_argument('--wb', type=bool, default=True, help='use wandb')
+    parser.add_argument('--seed', type=int, default=1, help='use wandb')
 
     config = parser.parse_args()
 
