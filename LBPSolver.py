@@ -24,15 +24,10 @@ class LBPIQASolver(object):
         self.backbone_params += list(map(id, self.model_lbp.efficientnet1.parameters()))
         self.lbp_params = filter(lambda p: id(p) not in self.backbone_params, self.model_lbp.parameters())
         self.backbone = filter(lambda p: id(p) in self.backbone_params, self.model_lbp.parameters())
-
-
         self.lr = config.lr
         self.lrratio = config.lr_ratio
         self.weight_decay = config.weight_decay
         self.wb = config.wb
-        # paras = [{'params': self.lbp_params, 'lr': self.lr * self.lrratio},
-        #          {'params': self.model_lbp.parameters(), 'lr': self.lr}]
-        # self.solver = torch.optim.Adam(paras, weight_decay=self.weight_decay)
         paras = [{'params': self.lbp_params, 'lr': self.lr * self.lrratio},
                  {'params': self.backbone, 'lr': self.lr}]
         self.solver = torch.optim.Adam(paras, weight_decay=self.weight_decay)
