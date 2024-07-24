@@ -10,7 +10,7 @@ import torch
 # 等价于os.environ["CUDA_VISIBLE_DEVICES"] = '0,1,2'
 # net = torch.nn.DataParallel(model)
 #os.environ['CUDA_VISIBLE_DEVICES'] = '0'
-# os.environ['CUDA_VISIBLE_DEVICES'] = '2'
+os.environ['CUDA_VISIBLE_DEVICES'] = '1'
 #os.environ['CUDA_VISIBLE_DEVICES'] = ','.join(map(str,[0,1]))
 main_path = "."
 
@@ -50,9 +50,9 @@ def main(config):
     print('Training and testing on %s dataset for %d rounds...' % (config.dataset, config.train_test_num))
 
     if config.wb:
-        config.run = wandb.init(project=config.dataset+"_iqa", mode="online")
+        config.run = wandb.init(project=config.dataset+"_iqa_origin", config=config, mode="online")
     else:
-        config.run = wandb.init(project=config.dataset + "_iqa", mode="disabled")
+        config.run = wandb.init(project=config.dataset + "_iqa_origin", config=config, mode="disabled")
 
     config.run.name = str(config.seed)
 

@@ -1,30 +1,189 @@
 wandb: Currently logged in as: pqy000 (pqythu). Use `wandb login --relogin` to force relogin
-Training and testing on csiq dataset for 10 rounds...
-2024-07-19 12:28:58.551478: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+Training and testing on live dataset for 10 rounds...
+2024-07-23 22:42:32.682737: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
 To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
-2024-07-19 12:28:59.401687: W tensorflow/compiler/xla/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libnvinfer.so.7'; dlerror: libnvinfer.so.7: cannot open shared object file: No such file or directory; LD_LIBRARY_PATH: /opt/cudnn/lib64:/usr/local/cuda/lib64
-2024-07-19 12:28:59.401788: W tensorflow/compiler/xla/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libnvinfer_plugin.so.7'; dlerror: libnvinfer_plugin.so.7: cannot open shared object file: No such file or directory; LD_LIBRARY_PATH: /opt/cudnn/lib64:/usr/local/cuda/lib64
-2024-07-19 12:28:59.401801: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Cannot dlopen some TensorRT libraries. If you would like to use Nvidia GPU with TensorRT, please make sure the missing libraries mentioned above are installed properly.
-wandb: wandb version 0.17.4 is available!  To upgrade, please run:
+2024-07-23 22:42:33.734021: W tensorflow/compiler/xla/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libnvinfer.so.7'; dlerror: libnvinfer.so.7: cannot open shared object file: No such file or directory; LD_LIBRARY_PATH: /opt/cudnn/lib64:/usr/local/cuda/lib64
+2024-07-23 22:42:33.734128: W tensorflow/compiler/xla/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libnvinfer_plugin.so.7'; dlerror: libnvinfer_plugin.so.7: cannot open shared object file: No such file or directory; LD_LIBRARY_PATH: /opt/cudnn/lib64:/usr/local/cuda/lib64
+2024-07-23 22:42:33.734141: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Cannot dlopen some TensorRT libraries. If you would like to use Nvidia GPU with TensorRT, please make sure the missing libraries mentioned above are installed properly.
+wandb: wandb version 0.17.5 is available!  To upgrade, please run:
 wandb:  $ pip install wandb --upgrade
 wandb: Tracking run with wandb version 0.12.17
-wandb: Run data is saved locally in /home/qingyi/GPU20/project/wandb/run-20240719_122856-26cgu9hw
+wandb: Run data is saved locally in /home/qingyi/GPU20/project/wandb/run-20240723_224230-2gojz8at
 wandb: Run `wandb offline` to turn off syncing.
-wandb: Syncing run driven-pine-14
-wandb: ⭐️ View project at https://wandb.ai/pqythu/csiq_iqa
-wandb: 🚀 View run at https://wandb.ai/pqythu/csiq_iqa/runs/26cgu9hw
+wandb: Syncing run quiet-microwave-3
+wandb: ⭐️ View project at https://wandb.ai/pqythu/live_iqa_origin
+wandb: 🚀 View run at https://wandb.ai/pqythu/live_iqa_origin/home/qingyi/mi/home/qingyi/miniconda3/envs/py3/lib/python3.7/site-packages/torch/nn/modules/loss.py:912: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  return F.smooth_l1_loss(input, target, reduction=self.reduction, beta=self.beta)
 Round 1
 Loaded pretrained weights for efficientnet-b0
 Loaded pretrained weights for efficientnet-b0
 Epoch	Train_Loss	Train_SRCC	Test_SRCC	Test_PLCC
-1	0.010		0.8957		0.6980		0.7173
-Traceback (most recent call last):
-  File "train_test_IQA.py", line 135, in <module>
-    main(config)
-  File "train_test_IQA.py", line 68, in main
-    srcc_all[i], plcc_all[i] = solver.train()
-  File "/home/qingyi/GPU20/project/LBPSolver.py", line 89, in train
-    pred_scores_file.write(f"{image_path}\t{gt_score}\t{pred_score}\n")
-OSError: [Errno 28] No space left on device
-wandb: Waiting for W&B process to finish... (failed 1). Press Control-C to abort syncing.
-wandb: - 0.001 MB of 0.001 MB uploaded (0.000 MB deduped)wandb: \ 0.001 MB of 0.001 MB uploaded (0.000 MB deduped)wandb: | 0.001 MB of 0.001 MB uploaded (0.000 MB deduped)wandb: / 0.001 MB of 0.010 MB uploaded (0.000 MB deduped)wandb: - 0.001 MB of 0.011 MB uploaded (0.000 MB deduped)wandb: \ 0.001 MB of 0.011 MB uploaded (0.000 MB deduped)wandb: | 0.001 MB of 0.011 MB uploaded (0.000 MB deduped)wandb: / 0.001 MB of 0.011 MB uploaded (0.000 MB deduped)wandb: - 0.001 MB of 0.011 MB uploaded (0.000 MB deduped)wandb: \ 0.001 MB of 0.011 MB uploaded (0.000 MB deduped)wandb: | 0.001 MB of 0.011 MB uploaded (0.000 MB deduped)wandb: / 0.001 MB of 0.011 MB uploaded (0.000 MB deduped)wandb: - 0.001 MB of 0.011 MB uploaded (0.000 MB deduped)wandb: \ 0.001 MB of 0.011 MB uploaded (0.000 MB deduped)wandb: | 0.001 MB of 0.011 MB uploaded (0.000 MB deduped)wandb: / 0.001 MB of 0.011 MB uploaded (0.000 MB deduped)wandb: - 0.001 MB of 0.011 MB uploaded (0.000 MB deduped)wandb: \ 0.001 MB of 0.011 MB uploaded (0.000 MB deduped)wandb: | 0.011 MB of 0.011 MB uploaded (0.000 MB deduped)wandb: / 0.011 MB of 0.011 MB uploaded (0.000 MB deduped)wandb: - 0.011 MB of 0.011 MB uploaded (0.000 MB deduped)wandb: \ 0.011 MB of 0.011 MB uploaded (0.000 MB deduped)wandb: | 0.011 MB of 0.011 MB uploaded (0.000 MB deduped)wandb: / 0.011 MB of 0.011 MB uploaded (0.000 MB deduped)wandb: - 0.011 MB of 0.011 MB uploaded (0.000 MB deduped)wandb: \ 0.011 MB of 0.011 MB uploaded (0.000 MB deduped)wandb: | 0.011 MB of 0.011 MB uploaded (0.000 MB deduped)wandb: / 0.011 MB of 0.011 MB uploaded (0.000 MB
+1	12.624		0.8357		0.9787		0.9778
+2	9.412		0.9401		0.9770		0.9761
+3	9.473		0.9375		0.9768		0.9749
+4	9.545		0.9376		0.9762		0.9741
+5	9.520		0.9382		0.9803		0.9758
+6	9.496		0.9387		0.9770		0.9738
+7	9.608		0.9378		0.9773		0.9750
+8	9.488		0.9383		0.9769		0.9751
+9	9.450		0.9388		0.9793		0.9767
+10	9.480		0.9392		0.9791		0.9756
+Best test SRCC 0.980309, PLCC 0.975840
+Round 2
+Loaded pretrained weights for efficientnet-b0
+Loaded pretrained weights for efficientnet-b0
+Epoch	Train_Loss	Train_SRCC	Test_SRCC	Test_PLCC
+1	12.647		0.8363		0.9334		0.9416
+2	8.531		0.9427		0.9368		0.9440
+3	8.302		0.9451		0.9376		0.9439
+4	8.479		0.9418		0.9387		0.9454
+5	8.412		0.9435		0.9412		0.9471
+6	8.432		0.9437		0.9383		0.9463
+7	8.399		0.9437		0.9377		0.9464
+8	8.427		0.9437		0.9386		0.9448
+9	8.422		0.9437		0.9363		0.9440
+10	8.386		0.9450		0.9386		0.9470
+Best test SRCC 0.941161, PLCC 0.947123
+Round 3
+Loaded pretrained weights for efficientnet-b0
+Loaded pretrained weights for efficientnet-b0
+Epoch	Train_Loss	Train_SRCC	Test_SRCC	Test_PLCC
+1	13.048		0.8210		0.9408		0.9458
+2	8.612		0.9277		0.9354		0.9423
+3	8.624		0.9293		0.9348		0.9413
+4	8.549		0.9278		0.9382		0.9437
+5	8.674		0.9280		0.9391		0.9454
+6	8.561		0.9294		0.9388		0.9459
+7	8.577		0.9287		0.9390		0.9444
+8	8.549		0.9284		0.9406		0.9467
+9	8.479		0.9301		0.9398		0.9458
+10	8.578		0.9277		0.9368		0.9425
+Best test SRCC 0.940818, PLCC 0.945849
+Round 4
+Loaded pretrained weights for efficientnet-b0
+Loaded pretrained weights for efficientnet-b0
+Epoch	Train_Loss	Train_SRCC	Test_SRCC	Test_PLCC
+1	12.780		0.8193		0.9707		0.9712
+2	8.190		0.9383		0.9714		0.9714
+3	8.150		0.9399		0.9710		0.9692
+4	8.154		0.9401		0.9701		0.9689
+5	8.049		0.9407		0.9682		0.9690
+6	8.209		0.9387		0.9719		0.9720
+7	8.085		0.9397		0.9701		0.9697
+8	8.059		0.9408		0.9705		0.9691
+9	8.026		0.9408		0.9703		0.9700
+10	8.090		0.9394		0.9702		0.9696
+Best test SRCC 0.971874, PLCC 0.971994
+Round 5
+Loaded pretrained weights for efficientnet-b0
+Loaded pretrained weights for efficientnet-b0
+Epoch	Train_Loss	Train_SRCC	Test_SRCC	Test_PLCC
+1	12.520		0.8430		0.9590		0.9567
+2	8.270		0.9378		0.9587		0.9585
+3	8.317		0.9380		0.9580		0.9563
+4	8.297		0.9374		0.9575		0.9577
+5	8.352		0.9365		0.9576		0.9548
+6	8.337		0.9374		0.9600		0.9581
+7	8.295		0.9385		0.9603		0.9588
+8	8.278		0.9379		0.9558		0.9550
+9	8.340		0.9372		0.9563		0.9550
+10	8.399		0.9359		0.9584		0.9573
+Best test SRCC 0.960275, PLCC 0.958775
+Round 6
+Loaded pretrained weights for efficientnet-b0
+Loaded pretrained weights for efficientnet-b0
+Epoch	Train_Loss	Train_SRCC	Test_SRCC	Test_PLCC
+1	12.637		0.8316		0.9555		0.9572
+2	8.612		0.9393		0.9605		0.9604
+3	8.485		0.9410		0.9573		0.9577
+4	8.596		0.9394		0.9570		0.9578
+5	8.709		0.9371		0.9606		0.9609
+6	8.570		0.9396		0.9574		0.9587
+7	8.626		0.9390		0.9570		0.9579
+8	8.539		0.9395		0.9571		0.9573
+9	8.630		0.9379		0.9561		0.9575
+10	8.511		0.9406		0.9577		0.9594
+Best test SRCC 0.960568, PLCC 0.960903
+Round 7
+Loaded pretrained weights for efficientnet-b0
+Loaded pretrained weights for efficientnet-b0
+Epoch	Train_Loss	Train_SRCC	Test_SRCC	Test_PLCC
+1	12.588		0.8320		0.9651		0.9645
+2	10.071		0.9367		0.9652		0.9661
+3	9.878		0.9390		0.9680		0.9665
+4	9.907		0.9393		0.9657		0.9647
+5	9.992		0.9389		0.9677		0.9663
+6	10.003		0.9379		0.9657		0.9650
+7	9.957		0.9381		0.9681		0.9663
+8	10.092		0.9367		0.9681		0.9679
+9	10.023		0.9385		0.9670		0.9660
+10	9.966		0.9393		0.9671		0.9659
+Best test SRCC 0.968065, PLCC 0.966297
+Round 8
+Loaded pretrained weights for efficientnet-b0
+Loaded pretrained weights for efficientnet-b0
+Epoch	Train_Loss	Train_SRCC	Test_SRCC	Test_PLCC
+1	12.731		0.8305		0.9153		0.9281
+2	8.055		0.9403		0.9081		0.9232
+3	8.051		0.9401		0.9147		0.9267
+4	8.031		0.9402		0.9100		0.9250
+5	8.104		0.9395		0.9101		0.9249
+6	8.058		0.9407		0.9093		0.9239
+7	7.970		0.9413		0.9099		0.9231
+8	7.994		0.9412		0.9059		0.9219
+9	7.949		0.9420		0.9117		0.9249
+10	7.958		0.9417		0.9119		0.9247
+Best test SRCC 0.915285, PLCC 0.928100
+Round 9
+Loaded pretrained weights for efficientnet-b0
+Loaded pretrained weights for efficientnet-b0
+Epoch	Train_Loss	Train_SRCC	Test_SRCC	Test_PLCC
+1	12.808		0.8344		0.9220		0.9111
+2	8.653		0.9450		0.9122		0.9053
+3	8.620		0.9450		0.9193		0.9110
+4	8.688		0.9443		0.9110		0.9065
+5	8.635		0.9444		0.9170		0.9074
+6	8.638		0.9441		0.9203		0.9096
+7	8.540		0.9472		0.9139		0.9071
+8	8.612		0.9446		0.9114		0.9031
+9	8.651		0.9440		0.9203		0.9105
+10	8.633		0.9443		0.9141		0.9091
+Best test SRCC 0.922000, PLCC 0.911067
+Round 10
+Loaded pretrained weights for efficientnet-b0
+Loaded pretrained weights for efficientnet-b0
+Epoch	Train_Loss	Train_SRCC	Test_SRCC	Test_PLCC
+1	12.562		0.8379		0.9535		0.9558
+2	8.234		0.9390		0.9520		0.9539
+3	8.285		0.9393		0.9517		0.9537
+4	8.342		0.9384		0.9528		0.9529
+5	8.325		0.9391		0.9553		0.9552
+6	8.364		0.9386		0.9523		0.9532
+7	8.377		0.9370		0.9545		0.9552
+8	8.354		0.9383		0.9525		0.9549
+9	8.315		0.9386		0.9528		0.9537
+10	8.264		0.9397		0.9539		0.9563
+Best test SRCC 0.955325, PLCC 0.955195
+Testing median SRCC 0.9578,	median PLCC 0.9570
+wandb: Waiting for W&B process to finish... (success).
+wandb: - 0.001 MB of 0.001 MB uploaded (0.000 MB deduped)wandb: \ 0.001 MB of 0.001 MB uploaded (0.000 MB deduped)wandb: | 0.001 MB of 0.001 MB uploaded (0.000 MB deduped)wandb: / 0.001 MB of 0.012 MB uploaded (0.000 MB deduped)wandb: - 0.001 MB of 0.016 MB uploaded (0.000 MB deduped)wandb: \ 0.001 MB of 0.016 MB uploaded (0.000 MB deduped)wandb: | 0.001 MB of 0.016 MB uploaded (0.000 MB deduped)wandb: / 0.001 MB of 0.016 MB uploaded (0.000 MB deduped)wandb: - 0.001 MB of 0.016 MB uploaded (0.000 MB deduped)wandb: \ 0.001 MB of 0.016 MB uploaded (0.000 MB deduped)wandb: | 0.001 MB of 0.016 MB uploaded (0.000 MB deduped)wandb: / 0.001 MB of 0.016 MB uploaded (0.000 MB deduped)wandb: - 0.001 MB of 0.016 MB uploaded (0.000 MB deduped)wandb: \ 0.001 MB of 0.016 MB uploaded (0.000 MB deduped)wandb: | 0.001 MB of 0.016 MB uploaded (0.000 MB deduped)wandb: / 0.001 MB of 0.016 MB uploaded (0.000 MB deduped)wandb: - 0.015 MB of 0.016 MB uploaded (0.000 MB deduped)wandb: \ 0.016 MB of 0.016 MB uploaded (0.000 MB deduped)wandb: | 0.016 MB of 0.016 MB uploaded (0.000 MB deduped)wandb: / 0.016 MB of 0.016 MB uploaded (0.000 MB deduped)wandb: - 0.016 MB of 0.016 MB uploaded (0.000 MB deduped)wandb: \ 0.016 MB of 0.016 MB uploaded (0.000 MB deduped)wandb: | 0.016 MB of 0.016 MB uploaded (0.000 MB deduped)wandb: / 0.016 MB of 0.016 MB uploaded (0.000 MB deduped)wandb:                                                                                
+wandb: 
+wandb: Run history:
+wandb:   loss_l1 ▆▃▃▆▆▄▁▃▅▅▂▆▃▄▃▄▃▂▂▄▅▃▆▁▂█▄▃▃▃▁▂▄▃▂▂▄▇▁▃
+wandb:   loss_l2 ▃▅▅▅▅▂▃▅▃▂▂▂█▅▃▂▂▅▃▃▄▃▂▁▂▃▄▃▃▄▁▃▃▅▅▄▄▆▄▄
+wandb:  plcc_med ▁
+wandb:  srcc_med ▁
+wandb: test_plcc ████▅▅▅▅▅▄▅▅▇▇▇▇▆▆▆▆▆▆▆▆▇▇▇▇▃▃▃▃▁▁▁▂▆▆▆▆
+wandb: test_srcc ████▄▄▄▄▄▄▄▄▇▇▇▇▆▆▆▆▆▆▆▆▇▇▇▇▁▁▁▁▁▁▂▂▅▅▆▆
+wandb: 
+wandb: Run summary:
+wandb:   loss_l1 11.93907
+wandb:   loss_l2 1.20332
+wandb:  plcc_med 0.95698
+wandb:  srcc_med 0.9578
+wandb: test_plcc 0.95635
+wandb: test_srcc 0.95385
+wandb: 
+wandb: Synced quiet-microwave-3: https://wandb.ai/pqythu/live_iqa_origin/runs/2gojz8at
+wandb: Synced 6 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20240723_224230-2gojz8at/logs
